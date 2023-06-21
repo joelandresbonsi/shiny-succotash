@@ -11,6 +11,7 @@ const app = new Application({
 
 const clampy: Sprite = Sprite.from("clampy.png");
 
+
 clampy.anchor.set(0.5);
 
 clampy.x = app.screen.width / 2;
