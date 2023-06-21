@@ -1,12 +1,12 @@
-import { Application, Assets, Container, Sprite } from 'pixi.js'
+import { Application, Assets, Container, Point, Sprite } from 'pixi.js'
 
 const app = new Application({
 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
 	resolution: window.devicePixelRatio || 1,
 	autoDensity: true,
 	backgroundColor: 0x6495ed,
-	width: 890,
-	height: 890
+	width: 1280,
+	height: 640
 });
 
 Assets.add("Clampy", "./clampy.png");
@@ -54,11 +54,6 @@ Assets.load(["myHongo","myElf"]).then(()=>{
 	elfJumpHongo.addChild(myHongo);
     elfJumpHongo.addChild(myElf);
 
-	app.stage.addChild(elfJumpHongo);
-	
-	elfJumpHongo.scale.set(0.9);
-	elfJumpHongo.x = 350;
-	elfJumpHongo.y = 350;
 	//myHongo.x = 250;
     //myHongo.y = 350;
 	//myElf.x = 300;
@@ -72,6 +67,24 @@ Assets.load(["myHongo","myElf"]).then(()=>{
 	//myElf.scale.set(2,2); //misma forma de scale
 	//myElf.scale.x = 2;
 	//myElf.scale.y = 2;
-    
+	
+	elfJumpHongo.scale.set(0.9);
+	elfJumpHongo.x = 350;
+	elfJumpHongo.y = 350;
+	
+	myHongo.toGlobal(new Point);//saber donde esta posicionado.
+	console.log(myHongo.parent.toGlobal(myHongo.position));// a partir del padre preguntamos donde esta ubicado el hongo.
+	
+	//consigo el punto del hongo en la posicion que quiero ponerlo.
+	//const aux = myHongo.parent.toLocal(new Point(640,360));
+	//sete la nueva posicion.
+	//myHongo.position.x = aux.x;
+	//myHongo.position.y = aux.y;
 
+	
+	
+	
+	
+    
+	app.stage.addChild(elfJumpHongo);
 });
