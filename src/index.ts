@@ -1,4 +1,6 @@
-import { Application, Assets, Container, Point, Sprite } from 'pixi.js'
+import { Application, Assets} from 'pixi.js'
+import { assets } from './assets';
+import { Scene } from './Scene';
 
 const app = new Application({
 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
@@ -6,12 +8,9 @@ const app = new Application({
 	autoDensity: true,
 	backgroundColor: 0x6495ed,
 	width: 1280,
-	height: 640
+	height: 720
 });
 
-Assets.add("Clampy", "./clampy.png");
-Assets.add("myHongo", "./hongo1.png");
-Assets.add("myElf", "./elf.png");
 
 //para que esten las imagenes precargadas:
 window.addEventListener("resize", ()=>{
@@ -41,50 +40,9 @@ window.addEventListener("resize", ()=>{
 
 window.dispatchEvent(new Event("resize"));
 
-
-Assets.load(["myHongo","myElf"]).then(()=>{
-
-	const myHongo: Sprite = Sprite.from("myHongo");
-	console.log ("Hola mundo!", myHongo.width, myHongo.height);
-
-	const myElf: Sprite = Sprite.from("myElf");
-
-	const elfJumpHongo: Container = new Container();
+Assets.addBundle("myAssets", assets)
+Assets.loadBundle(["myAssets"]).then(()=>{
+	const myScene = new Scene();
+	app.stage.addChild(myScene);
 	
-	elfJumpHongo.addChild(myHongo);
-    elfJumpHongo.addChild(myElf);
-
-	//myHongo.x = 250;
-    //myHongo.y = 350;
-	//myElf.x = 300;
-    //myElf.y = 100;
-	myHongo.position.set(0,120);
-	myHongo.scale.set(0.2,0.2);//misma forma de scale
-	
-	//myHongo.scale.x = 0.3;
-	//myHongo.scale.y = 0.3;
-    
-	//myElf.scale.set(2,2); //misma forma de scale
-	//myElf.scale.x = 2;
-	//myElf.scale.y = 2;
-	
-	elfJumpHongo.scale.set(0.9);
-	elfJumpHongo.x = 350;
-	elfJumpHongo.y = 350;
-	
-	myHongo.toGlobal(new Point);//saber donde esta posicionado.
-	console.log(myHongo.parent.toGlobal(myHongo.position));// a partir del padre preguntamos donde esta ubicado el hongo.
-	
-	//consigo el punto del hongo en la posicion que quiero ponerlo.
-	//const aux = myHongo.parent.toLocal(new Point(640,360));
-	//sete la nueva posicion.
-	//myHongo.position.x = aux.x;
-	//myHongo.position.y = aux.y;
-
-	
-	
-	
-	
-    
-	app.stage.addChild(elfJumpHongo);
 });
